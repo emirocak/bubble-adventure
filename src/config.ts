@@ -27,10 +27,10 @@ export const defaultConfig: Config = {
   intro: {
     greeting: "Selam 🙃",
     body: [
-      "Sana bir sürü Big Babol verdim, farkındasın — sebepsiz değildi. Her birinin arkasında ufak bir QR var. Bunu zaten okuttun, bu seni sadece buraya getirdi.",
-      "Diğer 9 tanesinde birer yapboz parçası saklı. Okuttukça aşağıdaki kare kendi kendine tamamlanacak. Sıra yok, hangisini önce bulursan olur. Aceleye de gerek yok — bir kısmını bugün, bir kısmını başka gün bulsan da olur, ilerlemen kaybolmuyor.",
-      "Sonunda ne çıkacağını söylemiyorum tabii ki, sürprizi olmaz. Küçük bir şey ama tamamlamaya değer 😊",
-      "Kolay gelsin.",
+      "Bundan Sonda bulduğun her Big Bubble'ın arkasında ufak bir QR olacak. Bunu zaten okuttun, bu seni sadece buraya getirdi. Şu an arabana başka koyamıyorum vakti gelince hepsini yerleştirecem.",
+      "Diğer 9 tanesinde birer yapboz parçası saklı. Okuttukça aşağıdaki kare kendi kendine tamamlanacak. Aceleye de gerek yok — bir kısmını bugün, bir kısmını başka gün bulsan da olur, ilerlemen kaybolmuyor.",
+      "Sonunda ne çıkacağını söylemiyorum tabii ki, sürprizi olmaz. Küçük bir şey ama\ntamamlamaya değer 😊",
+      "Kolay gelsin",
     ],
   },
 
