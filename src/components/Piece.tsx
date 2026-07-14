@@ -11,8 +11,8 @@ interface Props {
 const rotations = [-1.5, 1, -0.5, 1.5, -1, 0.5, 1.2, -1.2, 0.8];
 
 /**
- * Kilitli parça: krem wrapper üstünde büyük "?", altında küçük ipucu, köşede parça no.
- * Açılınca: soluyor + hafif ölçek + blur — altındaki davet görünür.
+ * Kilitli parça: krem wrapper üstünde büyük "?", altında hafif blur'lu ipucu, köşede parça no.
+ * Blur'un amacı: ipucu var ama okumak için biraz çaba gerekiyor — teşvik ediyor.
  */
 export function Piece({ id, unlocked, wasJustUnlocked, hint }: Props) {
   const rotation = rotations[id - 1];
@@ -49,7 +49,10 @@ export function Piece({ id, unlocked, wasJustUnlocked, hint }: Props) {
         </span>
 
         {hint && (
-          <span className="mt-1 text-wrapper-mark/85 text-[9.5px] leading-tight font-medium max-w-full">
+          <span
+            className="mt-1 text-wrapper-mark/85 text-[9.5px] leading-tight font-medium max-w-full select-none"
+            style={{ filter: 'blur(2.2px)' }}
+          >
             {hint}
           </span>
         )}
