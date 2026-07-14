@@ -49,7 +49,7 @@ export const defaultConfig: Config = {
    * Uygulama yerlerini yaz — kısa tut (2-4 kelime).
    */
   pieceHints: {
-    1: 'ipucu 1',
+    1: 'İlk Sakladığım yerde',
     2: 'ipucu 2',
     3: 'ipucu 3',
     4: 'ipucu 4',
