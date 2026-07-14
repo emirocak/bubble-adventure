@@ -2,76 +2,75 @@
 
 Big Babol sakızlarına yapıştırılan QR kodlarından çözülen 3x3'lük bir yapboz. 9 parça birleşince altta gizli bir davet ortaya çıkar.
 
-- **10 QR toplam:** 1 info QR (siteyi açan) + 9 parça QR
+- **10 QR toplam:** 1 info QR + 9 parça QR
 - **Sıra yok:** herhangi bir parça herhangi bir sırada bulunabilir
-- **Kayıt localStorage'da:** telefon tarayıcısı temizlenmediği sürece kalır
-- **Tamamen statik:** GitHub Pages'te bedavaya çalışır
+- **İlerleme kaybolmaz:** telefon tarayıcısı temizlenmediği sürece kalır
+- **Statik site:** GitHub Pages'te bedavaya çalışır
 
-## Kurulum
+## Yönetim Paneli
 
-```bash
-npm install
-npm run dev
+`https://<kullanıcı>.github.io/<repo>/?admin=1` — sadece sen bileceğin URL.
+
+**Özellikleri:**
+- 10 QR kodunu üretir, PNG olarak indirilir
+- Bu cihazdaki ilerlemeyi sıfırlama butonu
+- Bütün metinleri (giriş, davet, ipuçları) düzenleme formu
+- Değişiklikleri bu cihazda anında önizleme
+- GitHub için hazır kod üretme — kopyala, `src/config.ts`'e yapıştır
+
+## Metinleri Değiştirmenin İki Yolu
+
+**Kolay yol (tavsiye):**
+1. Admin panelini aç → "Metinleri düzenle"
+2. İstediğin alanları değiştir
+3. "Bu cihazda önizle" — nasıl göründüğünü kontrol et
+4. Uygun bulunca "GitHub için kodu üret" → panoya kopyala
+5. GitHub'da `src/config.ts` dosyasını aç, içindekini sil, yapıştır, commit et
+6. ~1 dakika sonra site canlıda
+
+**Direkt yol:**
+`src/config.ts` dosyasını GitHub üzerinden aç, kalem ikonuyla düzenle:
+- `intro.body` — giriş metni
+- `invitation.day / place / time` — davet detayları
+- `pieceHints` — her parça için nerede olduğu ipucu
+- `unlockMessages` — parça açılınca rastgele biri seçilir
+
+## QR Kodlarını Sakızlara Yapıştırmak
+
+Admin panelinden 10 QR indir:
+- **00** — İlk (bilgilendirme) sakızına yapıştır. Site açılır, oyunu anlatır.
+- **01–09** — Diğer 9 sakıza dağıt. Hangisi hangi yere gittiği önemsiz.
+
+Sonra `src/config.ts` → `pieceHints`'e her parçanın nerede saklı olduğuna dair kısa bir ipucu yaz:
+```typescript
+pieceHints: {
+  1: 'çantanın içinde',
+  2: 'arka koltukta',
+  ...
+}
 ```
 
-Tarayıcı `http://localhost:5173` adresini açar.
+Bu ipuçları kilitli parçaların altında minik yazı olarak görünür.
 
-Test etmek için:
-- Info ekranı: `http://localhost:5173/`
-- Parça açmak: `http://localhost:5173/?p=1` … `?p=9`
-- QR admin paneli: `http://localhost:5173/?admin=1`
-- State sıfırla: `http://localhost:5173/?reset=1`
+## Kurulum (Sadece Deploy)
 
-## Yayına Alma (GitHub Pages)
+Lokal kurulum gerekli değil. Kod GitHub'da, GitHub Actions build ediyor, GitHub Pages yayınlıyor.
 
-**Otomatik (önerilen):**
-1. Bu klasörü bir GitHub reposuna yükle.
-2. Repo → **Settings → Pages → Source: GitHub Actions** olarak ayarla.
-3. `main` branch'ine push yap. Otomatik build ve deploy olur.
-4. URL: `https://<kullanıcı>.github.io/<repo>/`
+1. Bu klasörü GitHub'a repo olarak yükle
+2. Repo → **Settings → Pages → Source: GitHub Actions**
+3. Her push otomatik yeniden deploy eder
 
-**Manuel:**
-```bash
-npm run build     # dist/ klasörü çıkar
-# dist içeriğini gh-pages branch'ine push et (gh-pages paketi bunu yapar)
-npm run deploy
-```
-
-## QR Kodlarını Almak
-
-Site yayına alındıktan sonra:
-
-1. `https://<kullanıcı>.github.io/<repo>/?admin=1` adresini aç
-2. 10 tane QR göreceksin — hepsini indir
-3. **00 numaralı** QR'ı ilk sakıza yapıştır (siteyi açan, bilgilendirme sakızı)
-4. **01–09** numaralı QR'ları diğer 9 sakıza dağıt (hangi numaranın nereye gittiği önemli değil, sıra yok)
-
-QR kodları sadece o sitenin URL'sini içerir — telefonda kamera ile okutulunca doğrudan tarayıcı açılır.
-
-## İçeriği Özelleştirme
-
-Tüm metinler `src/config.ts` dosyasında. Değiştir, kaydet, push et:
-
-- `intro.body` — info QR açıldığında görünen metin
-- `invitation.day / place / time` — davet detayları (gün, mekan, saat)
-- `invitation.headline` — büyük başlık (default: "Kahve?")
-- `unlockMessages` — bir parça açıldığında rastgele biri seçilir
-- `completionMessage` — bitince görünen ufak metin
-
-Tasarım renklerini değiştirmek için: `tailwind.config.js` → `theme.extend.colors`.
-
-## Notlar
-
-- Yapboz tamamlanınca konfeti çıkar, sonrasında davet yazısı belirginleşir.
-- Aynı QR'ı iki kez okutursa "bunu zaten bulmuştun" mesajı çıkar.
-- Info QR'ı defalarca okutulabilir — sadece siteyi açar, state'i bozmaz.
-- `?admin=1` sadece senin bileceğin bir URL — bu linki paylaşma.
-- Tarayıcı verilerini temizlerse ilerleme gider. Bunu önemsiyorsan localStorage yerine URL tabanlı state'e geçmek gerekir (şu an ihtiyaç olduğunu sanmıyorum).
-
-## Stack
+## Kullanılan Teknolojiler
 
 - Vite + React + TypeScript
 - Tailwind CSS
-- Framer Motion (parça açılış animasyonları)
+- Framer Motion (parça animasyonları)
 - canvas-confetti (tamamlanma efekti)
-- qrcode (admin panelinde QR üretimi)
+- qrcode (QR üretimi)
+
+## Yardımcı URL'ler
+
+- Ana site: `/`
+- Belirli bir parçayı test için: `/?p=1` … `/?p=9`
+- İlerlemeyi sıfırla: `/?reset=1`
+- Admin: `/?admin=1`
