@@ -25,54 +25,49 @@ export interface Config {
 
 export const defaultConfig: Config = {
   intro: {
-    greeting: 'Selam 🙃',
+    greeting: "Selam 🙃",
     body: [
-      'Sana bir sürü Big Babol verdim, farkındasın — sebepsiz değildi. Her birinin arkasında ufak bir QR var. Bunu zaten okuttun, bu seni sadece buraya getirdi.',
-      'Diğer 9 tanesinde birer yapboz parçası saklı. Okuttukça aşağıdaki kare kendi kendine tamamlanacak. Sıra yok, hangisini önce bulursan olur. Aceleye de gerek yok — bir kısmını bugün, bir kısmını başka gün bulsan da olur, ilerlemen kaybolmuyor.',
-      'Sonunda ne çıkacağını söylemiyorum tabii ki, sürprizi olmaz. Küçük bir şey ama tamamlamaya değer 😊',
-      'Kolay gelsin.',
+      "Sana bir sürü Big Babol verdim, farkındasın — sebepsiz değildi. Her birinin arkasında ufak bir QR var. Bunu zaten okuttun, bu seni sadece buraya getirdi.",
+      "Diğer 9 tanesinde birer yapboz parçası saklı. Okuttukça aşağıdaki kare kendi kendine tamamlanacak. Sıra yok, hangisini önce bulursan olur. Aceleye de gerek yok — bir kısmını bugün, bir kısmını başka gün bulsan da olur, ilerlemen kaybolmuyor.",
+      "Sonunda ne çıkacağını söylemiyorum tabii ki, sürprizi olmaz. Küçük bir şey ama tamamlamaya değer 😊",
+      "Kolay gelsin.",
     ],
   },
 
   invitation: {
-    eyebrow: 'sadece bir soru',
-    headline: 'Kahve?',
-    day: 'Cuma',
-    place: 'kafe adı',
-    time: '17:00',
-    signature: '— Emir',
+    eyebrow: "sadece bir soru",
+    headline: "Kahve?",
+    day: "Ben gün Belirtmiyorum Çünkü Sonra Kızıyorsun :((",
+    place: "İstediğin Yer",
+    time: "18.00",
+    signature: "— Emir",
   },
 
-  /**
-   * Her yapboz parçasının altında görünen küçük ipucu.
-   * Kilitli parça: "?" + bu ipucu. Boş bırakırsan sadece "?" görünür.
-   * Uygulama yerlerini yaz — kısa tut (2-4 kelime).
-   */
   pieceHints: {
-    1: 'Arabanda İlk Sakladığım Yerde',
-    2: 'Şeftali Kokusu Mu Geliyor?',
-    3: 'Evet Koku Arkadan Da Geliyor',
-    4: 'İlk Sakladığım yerde Ama SB 399',
-    5: 'Bağajın Çok Mu Dağınık',
-    6: 'OFİSİMDE MUTFAKTA dmömdömdödmö',
-    7: 'E buda Emir ile bi kahve içince',
-    8: 'Azcık zorlayabilir Seni Arabanı Biraz Tanı Gizli Bölmede',
-    9: 'Azcık Zorlayabilir Seni (2) Arabanı Biraz Tanı 2. Gizli Bölmede',
+    1: "Arabanda İlk Sakladığım Yerde",
+    2: "Şeftali Kokusu Mu Geliyor?",
+    3: "Evet Koku Arkadan Da Geliyor",
+    4: "İlk Sakladığım yerde Ama SB 399",
+    5: "Bağajın Çok Mu Dağınık",
+    6: "OFİSİMDE MUTFAKTA dmömdömdödmö",
+    7: "E buda Emir ile bi kahve içince",
+    8: "Azcık zorlayabilir Seni Arabanı Biraz Tanı Gizli Bölmede",
+    9: "Azcık Zorlayabilir Seni (2) Arabanı Biraz Tanı 2. Gizli Bölmede",
   },
 
   unlockMessages: [
-    'buldun ✨',
-    'bir tane daha',
-    'iyi gidiyor',
-    'devam',
-    'güzel',
-    'hı hı, doğru yol',
-    'yakınsın',
-    'oh be',
+    "buldun ✨",
+    "bir tane daha",
+    "iyi gidiyor",
+    "devam",
+    "güzel",
+    "hı hı, doğru yol",
+    "yakınsın",
+    "oh be",
   ],
 
-  completionMessage: 'oldu bak',
-  brand: 'Bubble',
+  completionMessage: "oldu bak",
+  brand: "Bubble",
 };
 
 // ---- Override machinery (admin panel için) ----
