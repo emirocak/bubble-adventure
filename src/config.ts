@@ -49,15 +49,15 @@ export const defaultConfig: Config = {
    * Uygulama yerlerini yaz — kısa tut (2-4 kelime).
    */
   pieceHints: {
-    1: 'İlk Sakladığım yerde',
+    1: 'Arabanda İlk Sakladığım Yerde',
     2: 'Şeftali Kokusu Mu Geliyor?',
     3: 'Evet Koku Arkadan Da Geliyor',
-    4: 'SB 399',
-    5: 'Azcık zorlayabilir seni arabanı biraz tanı gizli bölmede',
-    6: 'Azcık zorlayabilir seni 2 arabanı biraz tanı gizli bölmede 2',
-    7: 'ipucu 7',
-    8: 'ipucu 8',
-    9: 'ipucu 9',
+    4: 'İlk Sakladığım yerde Ama SB 399',
+    5: 'Bağajın Çok Mu Dağınık',
+    6: 'OFİSİMDE MUTFAKTA dmömdömdödmö',
+    7: 'E buda Emir ile bi kahve içince',
+    8: 'Azcık zorlayabilir Seni Arabanı Biraz Tanı Gizli Bölmede',
+    9: 'Azcık Zorlayabilir Seni (2) Arabanı Biraz Tanı 2. Gizli Bölmede',
   },
 
   unlockMessages: [
