@@ -50,11 +50,11 @@ export const defaultConfig: Config = {
    */
   pieceHints: {
     1: 'İlk Sakladığım yerde',
-    2: 'ipucu 2',
-    3: 'ipucu 3',
-    4: 'ipucu 4',
-    5: 'ipucu 5',
-    6: 'ipucu 6',
+    2: 'Şeftali Kokusu Mu Geliyor?',
+    3: 'Evet Koku Arkadan Da Geliyor',
+    4: 'SB 399',
+    5: 'Azcık zorlayabilir seni arabanı biraz tanı gizli bölmede',
+    6: 'Azcık zorlayabilir seni 2 arabanı biraz tanı gizli bölmede 2',
     7: 'ipucu 7',
     8: 'ipucu 8',
     9: 'ipucu 9',
