@@ -30,7 +30,6 @@ export const defaultConfig: Config = {
       "Bundan Sonda bulduğun her Big Bubble'ın arkasında ufak bir QR olacak. Bunu zaten okuttun, bu seni sadece buraya getirdi. Şu an arabana başka koyamıyorum vakti gelince hepsini yerleştirecem.",
       "Diğer 9 tanesinde birer yapboz parçası saklı. Okuttukça aşağıdaki kare kendi kendine tamamlanacak. Aceleye de gerek yok — bir kısmını bugün, bir kısmını başka gün bulsan da olur, ilerlemen kaybolmuyor.",
       "Sonunda ne çıkacağını söylemiyorum tabii ki, sürprizi olmaz. Küçük bir şey ama\ntamamlamaya değer 😊",
-      "Şu an ipuçlarının olduğu yerler blurlu vakti gelince onlar da açılacak.",
       "Kolay gelsin",
     ],
   },
