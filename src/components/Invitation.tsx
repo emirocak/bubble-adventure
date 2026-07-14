@@ -1,16 +1,10 @@
-import { config } from '../config';
+import { useConfig } from '../hooks/useConfig';
 
-/**
- * Yapbozun altındaki davet.
- * 9 parça açıldıkça bu tasarım kademe kademe görünür.
- * Tamamlandığında final ekranı için de bu component kullanılır (büyütülmüş halde).
- */
 export function Invitation() {
-  const { invitation } = config;
+  const { invitation } = useConfig();
 
   return (
     <div className="relative grain w-full h-full bg-accent text-paper flex flex-col items-center justify-center px-6 text-center overflow-hidden">
-      {/* Corner marks — like a printed card's crop marks */}
       <CornerMark className="top-3 left-3" rotate={0} />
       <CornerMark className="top-3 right-3" rotate={90} />
       <CornerMark className="bottom-3 left-3" rotate={-90} />

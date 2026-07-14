@@ -5,21 +5,22 @@ interface Props {
   id: PieceId;
   unlocked: boolean;
   wasJustUnlocked: boolean;
+  hint: string;
 }
 
+const rotations = [-1.5, 1, -0.5, 1.5, -1, 0.5, 1.2, -1.2, 0.8];
+
 /**
- * Kilitli parça: krem/kahverengi wrapper.
+ * Kilitli parça: krem wrapper üstünde büyük "?", altında küçük ipucu, köşede parça no.
  * Açılınca: soluyor + hafif ölçek + blur — altındaki davet görünür.
- * Sabit çok küçük rotasyon her parçaya farklı, "elle yerleştirilmiş" hissi.
  */
-export function Piece({ id, unlocked, wasJustUnlocked }: Props) {
-  // Slight per-piece rotation for a hand-placed look
-  const rotation = [-1.5, 1, -0.5, 1.5, -1, 0.5, 1.2, -1.2, 0.8][id - 1];
+export function Piece({ id, unlocked, wasJustUnlocked, hint }: Props) {
+  const rotation = rotations[id - 1];
 
   return (
     <div className="relative w-full h-full">
       <motion.div
-        className="absolute inset-0 bg-wrapper flex items-center justify-center"
+        className="absolute inset-0 bg-wrapper flex flex-col items-center justify-center px-1.5 py-1 text-center"
         style={{ transformOrigin: 'center' }}
         initial={false}
         animate={{
@@ -33,9 +34,25 @@ export function Piece({ id, unlocked, wasJustUnlocked }: Props) {
           ease: [0.4, 0, 0.2, 1],
         }}
       >
-        <span className="font-mono text-wrapper-mark text-sm select-none">
+        <span
+          className="absolute top-1 right-1.5 font-mono text-[9px] text-wrapper-mark/60 select-none"
+          aria-hidden
+        >
           {String(id).padStart(2, '0')}
         </span>
+
+        <span
+          className="font-display font-light text-wrapper-mark select-none leading-none"
+          style={{ fontSize: 'clamp(1.5rem, 7vw, 2.25rem)' }}
+        >
+          ?
+        </span>
+
+        {hint && (
+          <span className="mt-1 text-wrapper-mark/85 text-[9.5px] leading-tight font-medium max-w-full">
+            {hint}
+          </span>
+        )}
       </motion.div>
     </div>
   );

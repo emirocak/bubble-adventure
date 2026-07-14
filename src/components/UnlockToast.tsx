@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState, useMemo } from 'react';
-import { config } from '../config';
+import { useConfig } from '../hooks/useConfig';
 
 interface Props {
   triggerKey: number | string | null;
@@ -8,13 +8,15 @@ interface Props {
 }
 
 export function UnlockToast({ triggerKey, variant = 'unlock' }: Props) {
+  const config = useConfig();
   const [visible, setVisible] = useState(false);
 
   const message = useMemo(() => {
     if (variant === 'already') return 'bunu zaten bulmuştun';
     const messages = config.unlockMessages;
+    if (messages.length === 0) return 'buldun';
     return messages[Math.floor(Math.random() * messages.length)];
-  }, [triggerKey, variant]);
+  }, [triggerKey, variant, config.unlockMessages]);
 
   useEffect(() => {
     if (triggerKey === null) return;

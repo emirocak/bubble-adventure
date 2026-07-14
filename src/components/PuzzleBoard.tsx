@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion';
+import { forwardRef } from 'react';
 import { ALL_PIECES, type PieceId } from '../hooks/usePuzzleState';
+import { useConfig } from '../hooks/useConfig';
 import { Piece } from './Piece';
 import { Invitation } from './Invitation';
 
@@ -9,40 +11,40 @@ interface Props {
   isComplete: boolean;
 }
 
-export function PuzzleBoard({ pieces, justUnlocked, isComplete }: Props) {
-  return (
-    <motion.div
-      className="relative w-full aspect-square max-w-[420px] mx-auto"
-      animate={{
-        scale: isComplete ? 1.02 : 1,
-      }}
-      transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
-    >
-      {/* Card frame */}
-      <div className="absolute -inset-2 bg-paper-warm rounded-lg shadow-[0_1px_0_rgba(43,27,23,0.08),0_20px_40px_-20px_rgba(43,27,23,0.2)]" />
+export const PuzzleBoard = forwardRef<HTMLDivElement, Props>(
+  function PuzzleBoard({ pieces, justUnlocked, isComplete }, ref) {
+    const config = useConfig();
 
-      {/* Invitation layer (behind the pieces) */}
-      <div className="absolute inset-0 rounded-sm overflow-hidden">
-        <Invitation />
-      </div>
+    return (
+      <motion.div
+        ref={ref}
+        className="relative w-full aspect-square max-w-[420px] mx-auto"
+        animate={{ scale: isComplete ? 1.02 : 1 }}
+        transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
+      >
+        <div className="absolute -inset-2 bg-paper-warm rounded-lg shadow-[0_1px_0_rgba(43,27,23,0.08),0_20px_40px_-20px_rgba(43,27,23,0.2)]" />
 
-      {/* 3x3 grid of pieces on top */}
-      <div className="absolute inset-0 grid grid-cols-3 grid-rows-3">
-        {ALL_PIECES.map((id) => (
-          <Piece
-            key={id}
-            id={id}
-            unlocked={pieces.has(id)}
-            wasJustUnlocked={justUnlocked === id}
-          />
-        ))}
-      </div>
+        <div className="absolute inset-0 rounded-sm overflow-hidden">
+          <Invitation />
+        </div>
 
-      {/* Subtle grid lines only visible while some pieces are still locked */}
-      <GridLines faded={isComplete} />
-    </motion.div>
-  );
-}
+        <div className="absolute inset-0 grid grid-cols-3 grid-rows-3">
+          {ALL_PIECES.map((id) => (
+            <Piece
+              key={id}
+              id={id}
+              unlocked={pieces.has(id)}
+              wasJustUnlocked={justUnlocked === id}
+              hint={config.pieceHints[id] ?? ''}
+            />
+          ))}
+        </div>
+
+        <GridLines faded={isComplete} />
+      </motion.div>
+    );
+  },
+);
 
 function GridLines({ faded }: { faded: boolean }) {
   return (

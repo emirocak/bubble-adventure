@@ -1,13 +1,29 @@
 /**
  * Bütün özelleştirilebilir metinler burada.
- * Dizayn dosyalarına dokunmadan hepsini buradan değiştirebilirsin.
+ * Buradan değiştirebilirsin ya da /?admin=1 panelinden düzenleyip
+ * "kodu kopyala" ile ürettiğin metni buraya yapıştırabilirsin.
  */
 
-export const config = {
-  /**
-   * İlk QR (bilgilendirme sakızı) okutulduğunda görünen ekran.
-   * body paragrafları sıra ile alt alta gösterilir.
-   */
+export interface Config {
+  intro: {
+    greeting: string;
+    body: string[];
+  };
+  invitation: {
+    eyebrow: string;
+    headline: string;
+    day: string;
+    place: string;
+    time: string;
+    signature: string;
+  };
+  pieceHints: Record<number, string>;
+  unlockMessages: string[];
+  completionMessage: string;
+  brand: string;
+}
+
+export const defaultConfig: Config = {
   intro: {
     greeting: 'Selam 🙃',
     body: [
@@ -16,13 +32,8 @@ export const config = {
       'Sonunda ne çıkacağını söylemiyorum tabii ki, sürprizi olmaz. Küçük bir şey ama tamamlamaya değer 😊',
       'Kolay gelsin.',
     ],
-    ctaLabel: 'Yapbozu Gör',
   },
 
-  /**
-   * Yapboz tamamen çözüldüğünde ortaya çıkan davet.
-   * Yapbozun kendisi bu metin. 9 parça birleşince bunu okuyor.
-   */
   invitation: {
     eyebrow: 'sadece bir soru',
     headline: 'Kahve?',
@@ -33,9 +44,22 @@ export const config = {
   },
 
   /**
-   * Bir parça açıldığında rastgele biri seçilir.
-   * Ton: hafif, arkadaşça, muzip.
+   * Her yapboz parçasının altında görünen küçük ipucu.
+   * Kilitli parça: "?" + bu ipucu. Boş bırakırsan sadece "?" görünür.
+   * Uygulama yerlerini yaz — kısa tut (2-4 kelime).
    */
+  pieceHints: {
+    1: 'ipucu 1',
+    2: 'ipucu 2',
+    3: 'ipucu 3',
+    4: 'ipucu 4',
+    5: 'ipucu 5',
+    6: 'ipucu 6',
+    7: 'ipucu 7',
+    8: 'ipucu 8',
+    9: 'ipucu 9',
+  },
+
   unlockMessages: [
     'buldun ✨',
     'bir tane daha',
@@ -47,11 +71,53 @@ export const config = {
     'oh be',
   ],
 
-  /** 9. parça açıldığında ekranın üstünde beliren minik başlık */
   completionMessage: 'oldu bak',
-
-  /** Header'daki küçük başlık */
   brand: 'Bubble',
 };
 
-export type Config = typeof config;
+// ---- Override machinery (admin panel için) ----
+
+const OVERRIDES_KEY = 'bubble-config-overrides-v1';
+
+function isPlainObject(v: unknown): v is Record<string, unknown> {
+  return !!v && typeof v === 'object' && !Array.isArray(v);
+}
+
+function deepMerge<T>(base: T, override: unknown): T {
+  if (!isPlainObject(override)) return base;
+  const result: Record<string, unknown> = isPlainObject(base) ? { ...base } : {};
+  for (const key of Object.keys(override)) {
+    const bv = (base as Record<string, unknown>)?.[key];
+    const ov = override[key];
+    if (ov === undefined) continue;
+    if (isPlainObject(bv) && isPlainObject(ov)) {
+      result[key] = deepMerge(bv, ov);
+    } else {
+      result[key] = ov;
+    }
+  }
+  return result as T;
+}
+
+export function loadOverrides(): Partial<Config> {
+  try {
+    const raw = localStorage.getItem(OVERRIDES_KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch {
+    return {};
+  }
+}
+
+export function saveOverrides(overrides: Partial<Config>) {
+  localStorage.setItem(OVERRIDES_KEY, JSON.stringify(overrides));
+  window.dispatchEvent(new Event('bubble-config-updated'));
+}
+
+export function clearOverrides() {
+  localStorage.removeItem(OVERRIDES_KEY);
+  window.dispatchEvent(new Event('bubble-config-updated'));
+}
+
+export function getConfig(): Config {
+  return deepMerge(defaultConfig, loadOverrides());
+}
